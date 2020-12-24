@@ -1,0 +1,4 @@
+{
+  "MONGO_URI": "mongodb+srv://mern_tracker:xcRv2bwTLpVWXBxp@sandbox.ps7uw.mongodb.net/training1?retryWrites=true&w=majority",
+  "jwtSecret": "mySecret123jwt"
+}
