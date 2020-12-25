@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import api from "../utils/api";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const UserList = () => {
+import api from "../utils/api";
+import User from "../components/User";
+
+const UserList = ({ user, history }) => {
   const [users, setUsers] = useState([]);
 
   const listOfUsers = async () => {
@@ -13,8 +17,27 @@ const UserList = () => {
   useEffect(() => {
     listOfUsers();
   }, []);
+  const addUser = () => {
+    history.push("/userList/addUser");
+  };
 
-  return <div>{JSON.stringify(users)}</div>;
+  return (
+    <div className="search">
+      {user && user.role === "admin" && (
+        <button onClick={addUser}>Add User</button>
+      )}
+      {!users || users.length === 0 ? (
+        <h1>No Users found</h1>
+      ) : (
+        users.map((user) => <User key={user._id} {...user} />)
+      )}
+    </div>
+  );
 };
-
-export default UserList;
+UserList.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+export default connect(mapStateToProps)(UserList);

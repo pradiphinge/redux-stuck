@@ -13,8 +13,10 @@ import Header from "./components/Header";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import UserList from "./Pages/UserList";
+import ReferredUsers from "./Pages/ReferredUsers";
 import { Provider } from "react-redux";
 import { LOGOUT } from "./redux/actionCreators/actionTypes";
+import PrivateRoute from "./utils/PrivateRoute";
 
 const App = () => {
   useEffect(() => {
@@ -37,8 +39,13 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
-          {/* <Route exact path="/register" component={Register} /> */}
+          <Route exact path="/register" component={Register} />
           <Route exact path="/userList" component={UserList} />
+          <PrivateRoute
+            exact
+            path="/userList/addUser"
+            component={ReferredUsers}
+          />
         </Switch>
       </Router>
     </Provider>

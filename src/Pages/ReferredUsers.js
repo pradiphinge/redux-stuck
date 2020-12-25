@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { register } from "../redux/actionCreators/auth";
+import { referRegister } from "../redux/actionCreators/referredUsers";
 
 const initialState = {
   name: "",
@@ -12,7 +12,7 @@ const initialState = {
   address: "",
   role: "user",
 };
-const Register = ({ errors, loading, register, history }) => {
+const ReferredUsers = ({ errors, loading, referRegister }) => {
   const [formdata, setFormdata] = useState(initialState);
   //const [password, setPassword] = useState("");
 
@@ -28,7 +28,7 @@ const Register = ({ errors, loading, register, history }) => {
       return;
     }
 
-    register(formdata, history);
+    referRegister(formdata);
   };
   return (
     <div className="search-params">
@@ -111,17 +111,16 @@ const Register = ({ errors, loading, register, history }) => {
   );
 };
 
-Register.propTypes = {
+ReferredUsers.propTypes = {
   email: PropTypes.string,
   user: PropTypes.object,
   password: PropTypes.string,
   register: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
-  errors: state.auth.errors,
-  isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading,
+  errors: state.ref.errors,
+  loading: state.ref.loading,
 });
 //const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { referRegister })(ReferredUsers);
